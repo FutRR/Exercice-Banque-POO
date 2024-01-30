@@ -2,6 +2,7 @@
 
 class Compte
 {
+    // Declaring the properties
     private string $libellé;
     private float $solde;
     private string $devise;
@@ -12,9 +13,12 @@ class Compte
         $this->libellé = $libellé;
         $this->solde = $solde;
         $this->devise = $devise;
+        //Initializing titulaire twice : once to a string and once to an array
         $this->titulaire = $titulaire;
         $this->titulaire->addComptes($this);
     }
+
+    //Getters & Setters//
 
     public function getLibellé(): string
     {
@@ -64,6 +68,8 @@ class Compte
         return $this;
     }
 
+    //Additioning the method parameter to the object's balance for a deposit function
+
     public function addSolde(float $crediter)
     {
         $this->solde += $crediter;
@@ -71,12 +77,20 @@ class Compte
                 Solde total du $this<br><br>";
     }
 
+    //Substracting the method parameter to the object's balance for a withdraw function
+    //if/else condition so the user can't withdraw more money that they have available 
     public function removeSolde(float $retrait)
     {
-        $this->solde -= $retrait;
-        return "Retrait de $retrait " . $this->devise . " au " . $this->libellé . "<br>
+        if ($retrait <= $this->solde) {
+            $this->solde -= $retrait;
+            return "Retrait de $retrait " . $this->devise . " au " . $this->libellé . "<br>
                 Solde total du $this<br><br>";
+        } else {
+            return "Vous ne pouvez pas retirer autant<br>";
+        }
     }
+
+    //Substracting the function's parameter from the object's balance and adding it to another object's balance for a transfer function
 
     public function virement(float $virement, Compte $compte)
     {
@@ -84,6 +98,8 @@ class Compte
         $compte->addSolde($virement);
         return "Virement de $virement $this->devise de $this->libellé à $compte->libellé <br><br>";
     }
+
+    //Displaying the required information
 
     public function getInfos()
     {

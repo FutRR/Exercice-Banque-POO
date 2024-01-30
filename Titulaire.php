@@ -2,10 +2,13 @@
 
 class Titulaire
 {
+    // Declaring the properties
     private string $nom;
     private string $prenom;
     private DateTime $birthDate;
     private string $ville;
+    //Declaring a account array to match each account to its owner
+
     private array $comptes;
 
     public function __construct(string $nom, string $prenom, string $birthDate, string $ville)
@@ -14,6 +17,7 @@ class Titulaire
         $this->prenom = $prenom;
         $this->birthDate = new dateTime($birthDate);
         $this->ville = $ville;
+        //Setting the array
         $this->comptes = [];
     }
 
@@ -76,18 +80,22 @@ class Titulaire
 
         return $this;
     }
+    //Adding account objects to the array (See Compte constructor)
 
     public function addComptes(Compte $compte)
     {
         $this->comptes[] = $compte;
     }
 
+    //Calculating the owner's age with the difference from today's date
     public function getAge()
     {
         $now = new DateTime();
         $interval = $this->birthDate->diff($now);
         return $interval->format("%Y");
     }
+
+    //Displaying the owner and their account with a foreach loop that goes to the previously mentionned array
 
     public function getInfos()
     {

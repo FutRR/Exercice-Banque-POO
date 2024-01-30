@@ -47,7 +47,7 @@ echo $c1->getInfos();
 echo $c2->getInfos();
 
 echo $c2->addSolde(20);
-echo $c1->removeSolde(400000000000);
+echo $c1->removeSolde(500);
 
 echo $c2->virement(20, $c1);
 
